@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# How to you this project
+
+run 'npm start' to start ReactJS
+run 'npx json-server --watch data/db.json --port 8000' to start the JSON Server
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
