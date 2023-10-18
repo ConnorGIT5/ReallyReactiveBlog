@@ -1,4 +1,4 @@
-# How to you this project
+# How to use this project
 
 run 'npm start' to start ReactJS
 run 'npx json-server --watch data/db.json --port 8000' to start the JSON Server
