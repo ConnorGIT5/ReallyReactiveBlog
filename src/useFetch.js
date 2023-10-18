@@ -1,0 +1,49 @@
+import { useState, useEffect } from 'react';
+
+const useFetch = (url) => {
+
+
+    const [data, setBlogs] = useState(null);
+    const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState(null);
+
+
+    useEffect(() => {
+        const abortCont = new AbortController();
+
+
+        setTimeout(() => {
+          fetch(url, { signal: abortCont.signal })
+              .then(res => {
+                  
+                  if (!res.ok){
+                      throw Error("Could not fetch the data for that resource");
+                  }
+  
+                  return res.json();
+              })
+              .then((data) => {
+                  console.log(data);
+                  setBlogs(data);
+                  setIsPending(false);
+                  setError(null);
+              })
+              .catch((err) => {
+                if (err.name === "AbortError") {
+                    console.log("Fetch aborted (ignore this error)");
+                } else {
+                  setIsPending(false);
+                  setError(err.message);
+                }
+
+              }) 
+          }, 0);   
+
+          return () => abortCont.abort();
+
+      }, [url]); // whenever the url changes, the dependancy will make the function rerun
+
+      return { data, isPending, error };
+}
+
+export default useFetch;
